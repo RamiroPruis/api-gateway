@@ -1,0 +1,25 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "API - GATEWAY",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamiroPruis/api-gateway.git"
+  },
+  "keywords": [],
+  "author": "Ramiro Pruis, Joaquin Fioriti, Mariano Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RamiroPruis/api-gateway/issues"
+  },
+  "homepage": "https://github.com/RamiroPruis/api-gateway#readme",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
