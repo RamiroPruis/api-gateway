@@ -11,9 +11,9 @@ const RESERVAS_HANDLER = {
     // DELETE: del
 }
 
-// const SUCURSALES_HANDLER = {
-//     GET: getSucursales,
-// }
+const SUCURSALES_HANDLER = {
+    GET: getSucursales,
+}
 
 export const apiHandler = async(req, res) =>{
 
@@ -29,6 +29,39 @@ export const apiHandler = async(req, res) =>{
         SUCURSALES_HANDLER[method](req,res)
     }
     else errorHandler(400,"Endpoint no valido",res)
+}
+
+function getSucursales(req,res){
+
+    const startsApi = req.url.indexOf('/api')
+    const path = req.url.substring(startsApi, req.url.length)
+
+    const options = {
+        host:'localhost',
+        port: SUCURSALES_PORT,
+        path: path,       
+        method: 'GET',
+        headers:{
+            'Content-type': 'application/json'
+        }
+    }
+
+    const reqSucursales = http.request(options, (resSucursales)=>{
+        let data = []
+
+        resSucursales.on('data',(chunck) => data.push(chunck))
+
+        resSucursales.on('end',()=>{
+            let body = JSON.parse(Buffer.concat(data).toString())
+            res.writeHead(200,{'Content-Type': 'application/json'})
+            res.end(JSON.stringify(body))
+        })
+    })
+
+       
+    reqSucursales.write(JSON.stringify({})) 
+    reqSucursales.end()
+    
 }
 
 function getReservas(req,res){
