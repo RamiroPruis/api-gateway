@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as http from 'node:http';
 import * as path from 'node:path';
+import {apiHandler} from './apiHandler.js'
 
 const PORT = 8000;
 
@@ -36,6 +37,7 @@ const prepareFile = async (url) => {
 http.createServer(async (req, res) => {
 
   if (req.url.includes('/api')){
+    console.log("Encontramos coincidencia api")
     apiHandler(req,res)
   }
   else{
