@@ -24,6 +24,7 @@ getSucursales().then((res) => {
 })
 
 const getReservas = async (params) => {
+  console.log("http://localhost:8000/api/reservas?" + params)
   const req = await fetch("http://localhost:8000/api/reservas?" + params)
   return req.json()
 }
@@ -33,13 +34,6 @@ diaContainer.addEventListener("change", () => {
   let dia = document.querySelector("#reserva-dia").value
   
 
-  console.log(
-    "http://localhost:8000/api/reservas?" +
-      new URLSearchParams({
-        branchId: sucursal,
-        dateTime: dia
-      })
-  )
 
   getReservas(new URLSearchParams({ branchId: sucursal, userId: -1,dateTime:dia })).then(
     (res) => {
@@ -68,14 +62,18 @@ reservaButton.onclick = async () => {
   for (const key of formData.keys()) {
     obj[key] = formData.get(key)
   }
+
+  let sucursalBox = document.querySelector("#reserva-sucursal")
+  let sucursalName = sucursalBox.options[sucursalBox.selectedIndex].text
+  
+  obj["sucursal"] = sucursalName
   console.log(obj)
 
-  const sucursales = await getSucursales()
-  console.log(sucursales)
+
   const modalContent = document.getElementById("modal-confirm-text")
 
   modalContent.innerHTML = `<p><b>Email: </b> ${obj.email}</p>
-  <p><b>Sucursal: </b>${sucursales[obj.sucursal -1].name} </p>
+  <p><b>Sucursal: </b>${obj.sucursal} </p>
   <p><b>Dia: </b> ${obj.dia}</p>
   <p><b>Horario: </b>${obj.horario} </p>`
 }
