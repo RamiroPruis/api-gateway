@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EL PAKE TURNOS</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
     <form action="submit" id="reservas-form">
-        <div class="container">
-            <label for="email">Email</label><br>
-            <input type="email" name="email" id="reserva-mail" required>
-        </div>
-        <div class="container">
-            <label for="sucursal">Sucursal</label><br>
-            <select name="sucursal" id="reserva-sucursal" required>
-                <option value="pake-store">Pake Store</option>
-                <option value="mariadown">MariaDown</option>
-            </select>
-        </div>
-        <div class="container">
-            <label for="horario">Horario</label><br>
-            <select name="horario" id="reserva-horario" required>
-                <option value="10am">10 am</option>
-                <option value="12pm">12 am</option>
-            </select>
-        </div>
-        <div class="container">
-            <button id="reserva-button">Reserva Ya</button>
-        </div>
-        
+      <div class="container">
+        <label for="email">Email</label><br />
+        <input type="email" name="email" id="reserva-mail" required />
+      </div>
+      <div class="container">
+        <label for="sucursal">Sucursal</label><br />
+        <select name="sucursal" id="reserva-sucursal" required></select>
+      </div>
+      <div class="container">
+        <label for="horario">Horario</label><br />
+        <select name="horario" id="reserva-horario" required>
+          <option value="10am">10 am</option>
+          <option value="12pm">12 am</option>
+        </select>
+      </div>
+      <div class="container">
+        <button id="reserva-button">Reserva Ya</button>
+      </div>
     </form>
     <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>Estas por confirmar una reserva con los siguientes datos: </p>
-          <button id="reserva-confirm">Confirmar</button>
-        </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Estas por confirmar una reserva con los siguientes datos:</p>
+        <button id="reserva-confirm">Confirmar</button>
       </div>
-
-</body>
-<script src="./main.js"></script>
+    </div>
+  </body>
+  <script src="./main.js"></script>
 </html>
