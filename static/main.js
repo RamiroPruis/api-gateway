@@ -3,7 +3,8 @@ const reservaButton = document.getElementById("reserva-button")
 const modal = document.getElementById("myModal")
 const span = document.getElementsByClassName("close")[0]
 const reservaConfirm = document.getElementById("reserva-confirm")
-const sucursalContainer = document.getElementById("reserva-sucursal")
+const diaContainer = document.getElementById("reserva-dia")
+document.getElementById('reserva-dia').valueAsDate = new Date();
 
 const SUCURSALES_PORT = 2000
 const RESERVAS_PORT = 2001 //2
@@ -23,22 +24,24 @@ getSucursales().then((res) => {
 })
 
 const getReservas = async (params) => {
-  console.log("holis")
   const req = await fetch("http://localhost:8000/api/reservas?" + params)
   return req.json()
 }
 
-sucursalContainer.addEventListener("change", () => {
+diaContainer.addEventListener("change", () => {
   let sucursal = document.querySelector("#reserva-sucursal").value
+  let dia = document.querySelector("#reserva-dia").value
+  
 
   console.log(
     "http://localhost:8000/api/reservas?" +
       new URLSearchParams({
         branchId: sucursal,
+        dateTime: dia
       })
   )
 
-  getReservas(new URLSearchParams({ branchId: sucursal, userId: -1 })).then(
+  getReservas(new URLSearchParams({ branchId: sucursal, userId: -1,dateTime:dia })).then(
     (res) => {
       console.log(res)
       document.querySelector("#reserva-horario").innerHTML = ""
@@ -47,8 +50,7 @@ sucursalContainer.addEventListener("change", () => {
           (document.querySelector(
             "#reserva-horario"
           ).innerHTML += `<option value=${reserva.id}> ${new Date(
-            reserva.dateTime
-          )}</option>`)
+            reserva.dateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</option>`)
       )
     }
   )
@@ -58,8 +60,24 @@ form.addEventListener("submit", (ev) => {
   ev.preventDefault()
 })
 
-reservaButton.onclick = () => {
+reservaButton.onclick = async () => {
   modal.style.display = "block"
+
+  const obj = {}
+  const formData = new FormData(form)
+  for (const key of formData.keys()) {
+    obj[key] = formData.get(key)
+  }
+  console.log(obj)
+
+  const sucursales = await getSucursales()
+  console.log(sucursales)
+  const modalContent = document.getElementById("modal-confirm-text")
+
+  modalContent.innerHTML = `<p><b>Email: </b> ${obj.email}</p>
+  <p><b>Sucursal: </b>${sucursales[obj.sucursal -1].name} </p>
+  <p><b>Dia: </b> ${obj.dia}</p>
+  <p><b>Horario: </b>${obj.horario} </p>`
 }
 
 span.onclick = function () {
