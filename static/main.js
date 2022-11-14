@@ -1,6 +1,6 @@
 const form = document.getElementById("reservas-form")
 const reservaButton = document.getElementById("reserva-button")
-const modal = document.getElementById("myModal")
+const modal = document.getElementById("modal-confirmar")
 const span = document.getElementsByClassName("close")[0]
 const reservaConfirm = document.getElementById("reserva-confirm")
 const diaContainer = document.getElementById("reserva-dia")
