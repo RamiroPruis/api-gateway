@@ -11,7 +11,6 @@ const RESERVAS_PORT = 2001 //2
 
 const getSucursales = async () => {
   const reqSucursales = await fetch("http://localhost:8000/api/sucursales/")
-
   return reqSucursales.json()
 }
 
@@ -33,8 +32,6 @@ diaContainer.addEventListener("change", () => {
   let sucursal = document.querySelector("#reserva-sucursal").value
   let dia = document.querySelector("#reserva-dia").value
   
-
-
   getReservas(new URLSearchParams({ branchId: sucursal, userId: -1,dateTime:dia })).then(
     (res) => {
       console.log(res)
@@ -55,15 +52,38 @@ form.addEventListener("submit", (ev) => {
 })
 
 reservaButton.onclick = async () => {
-
-  then(res)
-
-
-}
-
-const solicitarReservaBox = () => {
   modal.style.display = "block"
 
+  const obj = {}
+  const formData = new FormData(form)
+  for (const key of formData.keys()) {
+    obj[key] = formData.get(key)
+  }
+  const fecha = new Date(obj.dia)
+  console.log(obj)
+  fetch(`http://localhost:8000/api/reservas/solicitar/${obj.sucursal}`,{
+      method: 'POST',
+      body:JSON.stringify(
+       {
+        userId:10,
+        email:obj.email
+      })
+      }
+     ).then(res => {
+        console.log(res)
+        if (res.status == 200){
+        
+          console.log("TURNO DISPONIBLE")
+          solicitarReservaBox()
+        }
+        else{
+          //aca va si no se puede reservar
+        }
+     })
+}
+
+
+const solicitarReservaBox = () => {
   const obj = {}
   const formData = new FormData(form)
   for (const key of formData.keys()) {
@@ -79,7 +99,6 @@ const solicitarReservaBox = () => {
   obj["horario"] = horarioName
   
   
-  console.log(obj)
 
   const modalContent = document.getElementById("modal-confirm-text")
 

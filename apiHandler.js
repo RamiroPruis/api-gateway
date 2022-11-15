@@ -92,7 +92,6 @@ function getReservas(req, res) {
 
 function postReservas(req, res) {
   let body = [];
-
   req.on("data", (chunck) => body.push(chunck));
 
   req.on("end", () => {
@@ -112,7 +111,6 @@ function postReservas(req, res) {
 
     const reservaReq = http.request(options, (resReserva) => {
       let reservaBody = [];
-
       resReserva.on("data", (chunck) => reservaBody.push(chunck));
 
       resReserva.on("end", () => {
