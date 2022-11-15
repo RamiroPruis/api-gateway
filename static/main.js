@@ -1,13 +1,12 @@
 const form = document.getElementById("reservas-form")
 const reservaButton = document.getElementById("reserva-button")
 const modal = document.getElementById("myModal")
+const modalError = document.getElementById("myModalError")
 const span = document.getElementsByClassName("close")[0]
 const reservaConfirm = document.getElementById("reserva-confirm")
 const diaContainer = document.getElementById("reserva-dia")
 document.getElementById('reserva-dia').valueAsDate = new Date();
 
-const SUCURSALES_PORT = 2000
-const RESERVAS_PORT = 2001 //2
 
 const getSucursales = async () => {
   const reqSucursales = await fetch("http://localhost:8000/api/sucursales/")
@@ -61,33 +60,44 @@ reservaButton.onclick = async () => {
 
 }
 
-const solicitarReservaBox = () => {
-  modal.style.display = "block"
+const solicitarReservaBox = (statusCode) => {
 
-  const obj = {}
-  const formData = new FormData(form)
-  for (const key of formData.keys()) {
-    obj[key] = formData.get(key)
+  if (statusCode == 200){
+    modal.style.display = "block"
+
+    const obj = {}
+    const formData = new FormData(form)
+    for (const key of formData.keys()) {
+      obj[key] = formData.get(key)
+    }
+
+    let sucursalBox = document.querySelector("#reserva-sucursal")
+    let sucursalName = sucursalBox.options[sucursalBox.selectedIndex].text
+    obj["sucursal"] = sucursalName
+
+    let horarioBox = document.querySelector("#reserva-horario")
+    let horarioName = horarioBox.options[horarioBox.selectedIndex].text
+    obj["horario"] = horarioName
+    
+    
+    console.log(obj)
+
+    const modalContent = document.getElementById("modal-confirm-text")
+
+    modalContent.innerHTML = `<p><b>Email: </b> ${obj.email}</p>
+    <p><b>Sucursal: </b>${obj.sucursal} </p>
+    <p><b>Dia: </b> ${obj.dia}</p>
+    <p><b>Horario: </b>${obj.horario} </p>`
   }
-
-  let sucursalBox = document.querySelector("#reserva-sucursal")
-  let sucursalName = sucursalBox.options[sucursalBox.selectedIndex].text
-  obj["sucursal"] = sucursalName
-
-  let horarioBox = document.querySelector("#reserva-horario")
-  let horarioName = horarioBox.options[horarioBox.selectedIndex].text
-  obj["horario"] = horarioName
-  
-  
-  console.log(obj)
-
-  const modalContent = document.getElementById("modal-confirm-text")
-
-  modalContent.innerHTML = `<p><b>Email: </b> ${obj.email}</p>
-  <p><b>Sucursal: </b>${obj.sucursal} </p>
-  <p><b>Dia: </b> ${obj.dia}</p>
-  <p><b>Horario: </b>${obj.horario} </p>`
+  else{
+    modalError.style.display = "block"
+    const modalContent = document.getElementById("modal-confirm-error")
+    modalContent.innerHTML = "<p>El error es: ElPAKE</p>"
+  }
 }
+
+
+
 
 
 
