@@ -55,6 +55,13 @@ form.addEventListener("submit", (ev) => {
 })
 
 reservaButton.onclick = async () => {
+
+  then(res)
+
+
+}
+
+const solicitarReservaBox = () => {
   modal.style.display = "block"
 
   const obj = {}
@@ -81,6 +88,8 @@ reservaButton.onclick = async () => {
   <p><b>Dia: </b> ${obj.dia}</p>
   <p><b>Horario: </b>${obj.horario} </p>`
 }
+
+
 
 span.onclick = function () {
   modal.style.display = "none"
