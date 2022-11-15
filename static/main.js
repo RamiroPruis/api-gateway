@@ -28,7 +28,7 @@ const createMarkers = async (res) => {
       body: JSON.stringify({
         lat: sucursal.lat,
         lng: sucursal.lng,
-        category_name :"ashee"
+        category_name :sucursal.name
       })
     
     }
