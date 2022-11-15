@@ -7,11 +7,36 @@ const reservaConfirm = document.getElementById("reserva-confirm")
 const diaContainer = document.getElementById("reserva-dia")
 document.getElementById('reserva-dia').valueAsDate = new Date();
 
+const MARKERS_URL = "https://cartes.io/api/maps/8a64ae0b-21cd-4c19-a481-b42bca700119/markers"
+
 
 const getSucursales = async () => {
   const reqSucursales = await fetch("http://localhost:8000/api/sucursales/")
 
   return reqSucursales.json()
+}
+
+const createMarkers = async (res) => {
+
+  await res.forEach(async(sucursal) => {
+    const options = {
+      method: "POST",
+      credentials: 'same-origin',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        lat: sucursal.lat,
+        lng: sucursal.lng
+      })
+    
+    }
+    console.log("Creando marker, url:" + MARKERS_URL)
+    const req = await fetch(MARKERS_URL, options)
+    console.log(req)
+  })
+
 }
 
 getSucursales().then((res) => {
@@ -20,6 +45,7 @@ getSucursales().then((res) => {
       "#reserva-sucursal"
     ).innerHTML += `<option value=${sucursal.id}> ${sucursal.name}</option>`
   })
+  createMarkers(res)
 })
 
 const getReservas = async (params) => {

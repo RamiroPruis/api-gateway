@@ -38,6 +38,10 @@
           <button class="btn btn-primary" id="reserva-button">Reserva Ya</button>
     
         </form>
+        <iframe id="map" src="https://app.cartes.io/maps/8a64ae0b-21cd-4c19-a481-b42bca700119/embed?type=map"
+            width="100%"
+            height="400"
+            frameborder="0"></iframe>
       </div>
     </div>
     
@@ -47,6 +51,18 @@
         <span class="close">&times;</span>
         <p>Estas por confirmar una reserva con los siguientes datos:</p>
         <div id="modal-confirm-text">
+
+        </div>
+        <button class="btn btn-primary" id="reserva-confirm">Confirmar</button>
+      </div>
+    </div>
+
+
+    <div id="myModalError" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Hubo un error al solicitar la reserva:</p>
+        <div id="modal-confirm-error">
 
         </div>
         <button class="btn btn-primary" id="reserva-confirm">Confirmar</button>
