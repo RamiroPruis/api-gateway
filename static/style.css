@@ -9,6 +9,7 @@
 }
 
 
+
 .modal {
     display: none; 
     position: fixed; 
@@ -49,4 +50,10 @@
   .formulario{
     
     border: 1px solid #888;
+  }
+
+  .map-cartes{
+    margin-top: 10px;
+    border: 2px solid black;
+  
   }
