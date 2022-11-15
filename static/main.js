@@ -65,10 +65,14 @@ reservaButton.onclick = async () => {
 
   let sucursalBox = document.querySelector("#reserva-sucursal")
   let sucursalName = sucursalBox.options[sucursalBox.selectedIndex].text
-  
   obj["sucursal"] = sucursalName
-  console.log(obj)
 
+  let horarioBox = document.querySelector("#reserva-horario")
+  let horarioName = horarioBox.options[horarioBox.selectedIndex].text
+  obj["horario"] = horarioName
+  
+  
+  console.log(obj)
 
   const modalContent = document.getElementById("modal-confirm-text")
 
