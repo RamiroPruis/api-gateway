@@ -7,7 +7,8 @@ const reservaConfirm = document.getElementById("reserva-confirm")
 const diaContainer = document.getElementById("reserva-dia")
 document.getElementById('reserva-dia').valueAsDate = new Date();
 
-const MARKERS_URL = "https://cartes.io/api/maps/8a64ae0b-21cd-4c19-a481-b42bca700119/markers"
+const MARKERS_URL = "https://cartes.io/api/maps/b15857ea-d028-4563-84e7-294188a0ad7b/markers"
+const MAPS_URL = "https://cartes.io/api/maps"
 
 
 const getSucursales = async () => {
@@ -17,6 +18,23 @@ const getSucursales = async () => {
 }
 
 const createMarkers = async (res) => {
+
+  const options = {
+    method: "POST",
+    cors: "no-cors",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: "EL PAKE MAPS",
+      slug: "el pake",
+      description: "EL PAKEEEE",
+      privacy: "public",
+      users_can_create_markers: "yes"
+    })  
+  }
+
+  await fetch(MAPS, options)
 
   await res.forEach(async(sucursal) => {
     const options = {
@@ -30,7 +48,6 @@ const createMarkers = async (res) => {
         lng: sucursal.lng,
         category_name :sucursal.name
       })
-    
     }
     console.log("Creando marker, url:" + MARKERS_URL + options.body)
     const req = await fetch(MARKERS_URL, options)
