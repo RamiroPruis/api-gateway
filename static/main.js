@@ -21,18 +21,18 @@ const createMarkers = async (res) => {
   await res.forEach(async(sucursal) => {
     const options = {
       method: "POST",
-      credentials: 'same-origin',
-      cache: 'no-cache',
+      cors: "no-cors",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         lat: sucursal.lat,
-        lng: sucursal.lng
+        lng: sucursal.lng,
+        category_name :"ashee"
       })
     
     }
-    console.log("Creando marker, url:" + MARKERS_URL)
+    console.log("Creando marker, url:" + MARKERS_URL + options.body)
     const req = await fetch(MARKERS_URL, options)
     console.log(req)
   })
