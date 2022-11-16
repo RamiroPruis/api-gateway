@@ -1,7 +1,8 @@
 const form = document.getElementById("reservas-form")
 const reservaButton = document.getElementById("reserva-button")
-const modal = document.getElementById("myModal")
+const modal = document.getElementById("myModalConfirm")
 const modalError = document.getElementById("myModalError")
+const modalSolicitar = document.getElementById("myModalSolicitar")
 const span = document.getElementsByClassName("close")[0]
 const reservaConfirm = document.getElementById("reserva-confirm")
 const diaContainer = document.getElementById("reserva-dia")
@@ -94,19 +95,16 @@ form.addEventListener("submit", (ev) => {
 })
 
 reservaButton.onclick = async () => {
-  modal.style.display = "block"
-
   const obj = {}
   const formData = new FormData(form)
   for (const key of formData.keys()) {
     obj[key] = formData.get(key)
   }
-  const fecha = new Date(obj.dia)
+  const idreserva = document.querySelector("#reserva-horario").value
 
+  console.log(idreserva)
 
-
-
-  fetch(`http://localhost:8000/api/reservas/solicitar/${obj.sucursal}`,{
+  fetch(`http://localhost:8000/api/reservas/solicitar/${idreserva}`,{
       method: 'POST',
       body:JSON.stringify(
        {
@@ -116,20 +114,13 @@ reservaButton.onclick = async () => {
       }
      ).then(res => {
         console.log(res)
-        if (res.status == 200){
-        
-          console.log("TURNO DISPONIBLE")
-          solicitarReservaBox()
-        }
-        else{
-          //aca va si no se puede reservar
-        }
+        confirmarReservaBox(res.status)
      })
 }
 
 
 
-const solicitarReservaBox = (statusCode) => {
+const confirmarReservaBox = (statusCode) => {
 
   if (statusCode == 200){
     modal.style.display = "block"
@@ -159,13 +150,24 @@ const solicitarReservaBox = (statusCode) => {
     <p><b>Horario: </b>${obj.horario} </p>`
   }
   else{
-    modalError.style.display = "block"
-    const modalContent = document.getElementById("modal-confirm-error")
-    modalContent.innerHTML = "<p>El error es: ElPAKE</p>"
+    myModalError()
   }
 }
 
+const solicitarReservaBox = (statusCode) => {
+  if (statusCode == 200){
+    modalSolicitar.style.display = "block"
+  }
+  else{
+    myModalError()
+  }
+}
 
+const myModalError = () => {
+  modalError.style.display = "block"
+  const modalContent = document.getElementById("modal-confirm-error")
+  modalContent.innerHTML = "<p>El error es: ElPAKE</p>"
+}
 
 
 span.onclick = function () {
@@ -185,10 +187,19 @@ reservaConfirm.onclick = () => {
     obj[key] = formData.get(key)
   }
 
-  obj.userId = 0
+  const idreserva = document.querySelector("#reserva-horario").value
 
-  console.log(obj)
+  fetch(`http://localhost:8000/api/reservas/confirmar/${idreserva}`,{
+     method:'POST',
+     body: JSON.stringify({
+        userId: 10,
+        email: obj.email
+     })
+     }).then(res => {
+      console.log("Reserva confirmada")
+      solicitarReservaBox(res.status)
+  })
 
   modal.style.display = "none"
-
 }
+
