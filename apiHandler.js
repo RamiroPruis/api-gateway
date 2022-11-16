@@ -109,18 +109,34 @@ function postReservas(req, res) {
       },
     };
 
+    console.log("REALIZANDO POST", path)
+
     const reservaReq = http.request(options, (resReserva) => {
       let reservaBody = [];
       resReserva.on("data", (chunck) => reservaBody.push(chunck));
-
+      
       resReserva.on("end", () => {
         reservaBody = JSON.parse(Buffer.concat(reservaBody).toString());
+        console.log(reservaBody)
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(reservaBody));
       });
+
+      resReserva.on("error",()=>{
+        console.log("here")
+      })
+
     });
+
+    reservaReq.on("error",(err)=>{
+      console.log("ERRORRRRRRRRRRRRRRR",err)
+    })
 
     reservaReq.write(JSON.stringify(body));
     reservaReq.end();
   });
+
+  req.on("error",(e)=>{
+    console.log("ERROOOOOOOOOOOOOOOOR",e)
+  })
 }
