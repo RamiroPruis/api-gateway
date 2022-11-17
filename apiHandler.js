@@ -117,20 +117,12 @@ function postReservas(req, res) {
       
       resReserva.on("end", () => {
         reservaBody = JSON.parse(Buffer.concat(reservaBody).toString());
-        console.log(reservaBody)
-        res.writeHead(200, { "Content-Type": "application/json" });
+        res.writeHead(resReserva.statusCode, { "Content-Type": "application/json" });
         res.end(JSON.stringify(reservaBody));
       });
 
-      resReserva.on("error",()=>{
-        console.log("here")
-      })
-
     });
 
-    reservaReq.on("error",(err)=>{
-      console.log("ERRORRRRRRRRRRRRRRR",err)
-    })
 
     reservaReq.write(JSON.stringify(body));
     reservaReq.end();
