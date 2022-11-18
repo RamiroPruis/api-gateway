@@ -56,6 +56,9 @@ const createMarkers = async (res) => {
 
 }
 
+
+
+
 getSucursales().then((res) => {
   res.forEach((sucursal) => {
     document.querySelector(
@@ -70,6 +73,8 @@ const getReservas = async (params) => {
   const req = await fetch("http://localhost:8000/api/reservas?" + params)
   return req.json()
 }
+
+
 
 diaContainer.addEventListener("change", () => {
   let sucursal = document.querySelector("#reserva-sucursal").value
@@ -118,6 +123,9 @@ reservaButton.onclick = async () => {
      })
 }
 
+const refreshPage = () =>{
+  window.parent.location = window.parent.location.href;
+}
 
 
 const confirmarReservaBox = (statusCode) => {

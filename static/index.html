@@ -51,34 +51,34 @@
     
     <div id="myModalConfirm" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="refreshPage()">&times;</span>
         <p>Estas por confirmar una reserva con los siguientes datos:</p>
         <div id="modal-confirm-text">
 
         </div>
-        <button class="btn btn-primary" id="reserva-confirm">Confirmar Turno</button>
+        <button class="btn btn-primary" id="reserva-confirm" onclick="refreshPage()">Confirmar Turno</button>
       </div>
     </div>
 
 
     <div id="myModalError" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="refreshPage()">&times;</span>
         <p>Hubo un error al solicitar la reserva:</p>
         <div id="modal-confirm-error">
         </div>
-        <button class="btn btn-primary" id="reserva-error">Aceptar</button>
+        <button class="btn btn-primary" id="reserva-error" onclick="refreshPage()">Aceptar</button>
       </div>
     </div>
 
     <div id="myModalSolicitar" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="refreshPage()">&times;</span>
         <p>Turno solicitado exitosamente. Revise su casilla de correo</p>
         <p>Recuerde que, 24 horas antes del turno, usted recibirá un recordatorio del turno confirmando
           fecha y hora a la que debe asistir a la sucursal mencionada..
         </p>
-        <button class="btn btn-primary" id="reserva-solicitado">Aceptar</button>
+        <button class="btn btn-primary" id="reserva-solicitado" onclick="refreshPage()">Aceptar</button>
       </div>
     </div>
 
