@@ -118,8 +118,14 @@ reservaButton.onclick = async () => {
       })
       }
      ).then(res => {
+      console.log("ELpakeeeee")
+      if (res.status == 200){
         console.log(res)
         confirmarReservaBox(res.status)
+      }
+      else{
+        myModalError("No se pudo confirmar la reserva")
+      }
      })
 }
 
@@ -158,7 +164,7 @@ const confirmarReservaBox = (statusCode) => {
     <p><b>Horario: </b>${obj.horario} </p>`
   }
   else{
-    myModalError()
+    myModalError("No se pudo confirmar la reserva")
   }
 }
 
@@ -167,14 +173,14 @@ const solicitarReservaBox = (statusCode) => {
     modalSolicitar.style.display = "block"
   }
   else{
-    myModalError()
+    myModalError("No se pudo solicitar la reserva")
   }
 }
 
-const myModalError = () => {
+const myModalError = (mensaje) => {
   modalError.style.display = "block"
   const modalContent = document.getElementById("modal-confirm-error")
-  modalContent.innerHTML = "<p>El error es: ElPAKE</p>"
+  modalContent.innerHTML = `<p>${mensaje}</p>`
 }
 
 
@@ -204,8 +210,14 @@ reservaConfirm.onclick = () => {
         email: obj.email
      })
      }).then(res => {
-      console.log("Reserva confirmada")
-      solicitarReservaBox(res.status)
+      if (res.status == 200){
+        console.log("Reserva confirmada")
+        solicitarReservaBox(res.status)
+      }
+      else{
+        myModalError("No se pudo confirmar la reserva")
+      }
+      
   })
 
   modal.style.display = "none"
