@@ -37,7 +37,6 @@ const prepareFile = async (url) => {
 http
   .createServer(async (req, res) => {
     if (req.url.includes("/api")) {
-      console.log("Encontramos coincidencia api");
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader("Access-Control-Allow-Methods", "*");
       res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
@@ -52,9 +51,7 @@ http
       const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
       res.writeHead(statusCode, { "Content-Type": mimeType });
       file.stream.pipe(res);
-      console.log(`${req.method} ${req.url} ${statusCode}`);
     }
   })
   .listen(PORT);
 
-console.log(`Server running at http://127.0.0.1:${PORT}/`);

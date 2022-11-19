@@ -19,22 +19,6 @@ const getSucursales = async () => {
 
 const createMarkers = async (res) => {
 
-  // const options = {
-  //   method: "POST",
-  //   cors: "no-cors",
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     title: "EL PAKE MAPS",
-  //     slug: "el pake",
-  //     description: "EL PAKEEEE",
-  //     privacy: "public",
-  //     users_can_create_markers: "yes"
-  //   })  
-  // }
-
-  // await fetch(MAPS, options)
 
   await res.forEach(async(sucursal) => {
     const options = {
@@ -118,7 +102,6 @@ reservaButton.onclick = async () => {
       })
       }
      ).then(res => {
-      console.log("ELpakeeeee")
       if (res.status == 200){
         console.log(res)
         confirmarReservaBox(res.status)

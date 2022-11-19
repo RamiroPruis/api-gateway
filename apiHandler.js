@@ -7,7 +7,6 @@ const RESERVAS_PORT = 2001;
 const RESERVAS_HANDLER = {
   GET: getReservas,
   POST: postReservas,
-  // DELETE: del
 };
 
 const SUCURSALES_HANDLER = {
@@ -19,10 +18,8 @@ export const apiHandler = async (req, res) => {
   const { method } = req;
 
   if (req.url.includes("reservas")) {
-    console.log("Entramos en reservas");
     RESERVAS_HANDLER[method](req, res);
   } else if (req.url.includes("sucursales")) {
-    console.log("Entramos en sucursales");
     SUCURSALES_HANDLER[method](req, res);
   } else errorHandler(400, "Endpoint no valido", res);
 };
@@ -71,7 +68,6 @@ function getReservas(req, res) {
     },
   };
 
-  console.log(options);
   const reqReservas = http.request(options, (resReservas) => {
     let data = [];
 
@@ -109,7 +105,6 @@ function postReservas(req, res) {
       },
     };
 
-    console.log("REALIZANDO POST", path)
 
     const reservaReq = http.request(options, (resReserva) => {
       let reservaBody = [];
@@ -123,12 +118,11 @@ function postReservas(req, res) {
 
     });
 
-
     reservaReq.write(JSON.stringify(body));
     reservaReq.end();
   });
 
   req.on("error",(e)=>{
-    console.log("ERROOOOOOOOOOOOOOOOR",e)
+    console.log("Error",e)
   })
 }
