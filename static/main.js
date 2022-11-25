@@ -8,7 +8,7 @@ const reservaConfirm = document.getElementById("reserva-confirm")
 const diaContainer = document.getElementById("reserva-dia")
 document.getElementById('reserva-dia').valueAsDate = new Date();
 
-const MARKERS_URL = "https://cartes.io/api/maps/b15857ea-d028-4563-84e7-294188a0ad7b/markers"
+const MARKERS_URL = "https://cartes.io/api/maps/14620da0-1706-4d2f-8f1c-0073a6f601b2/markers"
 const MAPS_URL = "https://cartes.io/api/maps"
 
 
@@ -97,7 +97,7 @@ reservaButton.onclick = async () => {
       method: 'POST',
       body:JSON.stringify(
        {
-        userId:10,
+        userId:0,
         email:obj.email
       })
       }
@@ -189,7 +189,7 @@ reservaConfirm.onclick = () => {
   fetch(`http://localhost:8000/api/reservas/confirmar/${idreserva}`,{
      method:'POST',
      body: JSON.stringify({
-        userId: 10,
+        userId: 0,
         email: obj.email
      })
      }).then(res => {

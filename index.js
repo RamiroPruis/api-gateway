@@ -34,8 +34,9 @@ const prepareFile = async (url) => {
   return { found, ext, stream };
 };
 
-http
-  .createServer(async (req, res) => {
+
+
+http.createServer(async (req, res) => {
     if (req.url.includes("/api")) {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader("Access-Control-Allow-Methods", "*");
@@ -55,3 +56,4 @@ http
   })
   .listen(PORT);
 
+  console.log(`Server running at http://127.0.0.1:${PORT}/`);
